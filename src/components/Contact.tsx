@@ -33,67 +33,69 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="section-padding bg-primary-600 text-white">
+    <section id="contact" className="section-padding bg-gray-50">
       <div className="container-custom">
-        <h2 className="section-title text-center text-white">Contact Us</h2>
-        <p className="section-subtitle text-center text-primary-100">
-          Get in touch with our team for any inquiries or assistance
-        </p>
+        <div className="text-center mb-16">
+          <h2 className="section-title">Contact Us</h2>
+          <p className="section-subtitle">
+            Get in touch with our team for any inquiries or assistance
+          </p>
+        </div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Information */}
-          <div className="space-y-8">
+          <div className="space-y-10">
             <div>
-              <h3 className="text-2xl font-bold mb-6">Get In Touch</h3>
+              <h3 className="text-2xl font-semibold mb-8 text-gray-900">Get In Touch</h3>
               
-              <div className="space-y-6">
+              <div className="space-y-8">
                 <div className="flex items-start">
-                  <div className="bg-primary-700 p-3 rounded-lg mr-4">
-                    <Phone className="h-6 w-6" />
+                  <div className="icon-box mr-5">
+                    <Phone className="h-5 w-5" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-lg">Phone</h4>
-                    <p className="text-primary-100">+91 1234567890</p>
-                    <p className="text-primary-100">+91 9876543210</p>
+                    <h4 className="font-semibold text-lg text-gray-800 mb-2">Phone</h4>
+                    <p className="text-gray-600">+91 1234567890</p>
+                    <p className="text-gray-600">+91 9876543210</p>
                   </div>
                 </div>
                 
                 <div className="flex items-start">
-                  <div className="bg-primary-700 p-3 rounded-lg mr-4">
-                    <Mail className="h-6 w-6" />
+                  <div className="icon-box mr-5">
+                    <Mail className="h-5 w-5" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-lg">Email</h4>
-                    <p className="text-primary-100">info@curago.com</p>
-                    <p className="text-primary-100">support@curago.com</p>
+                    <h4 className="font-semibold text-lg text-gray-800 mb-2">Email</h4>
+                    <p className="text-gray-600">info@curago.com</p>
+                    <p className="text-gray-600">support@curago.com</p>
                   </div>
                 </div>
                 
                 <div className="flex items-start">
-                  <div className="bg-primary-700 p-3 rounded-lg mr-4">
-                    <MessageSquare className="h-6 w-6" />
+                  <div className="icon-box mr-5">
+                    <MessageSquare className="h-5 w-5" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-lg">WhatsApp</h4>
-                    <p className="text-primary-100">+91 8765432109</p>
+                    <h4 className="font-semibold text-lg text-gray-800 mb-2">WhatsApp</h4>
+                    <p className="text-gray-600">+91 8765432109</p>
                   </div>
                 </div>
               </div>
             </div>
             
             <div>
-              <h3 className="text-2xl font-bold mb-6">Follow Us</h3>
+              <h3 className="text-2xl font-semibold mb-8 text-gray-900">Follow Us</h3>
               <div className="flex space-x-4">
-                <a href="#" className="bg-primary-700 p-3 rounded-full hover:bg-primary-800 transition-colors">
+                <a href="#" className="p-3 rounded-full text-gray-600 hover:text-primary-500 hover:bg-gray-100 transition-all">
                   <Facebook className="h-6 w-6" />
                 </a>
-                <a href="#" className="bg-primary-700 p-3 rounded-full hover:bg-primary-800 transition-colors">
+                <a href="#" className="p-3 rounded-full text-gray-600 hover:text-primary-500 hover:bg-gray-100 transition-all">
                   <Instagram className="h-6 w-6" />
                 </a>
-                <a href="#" className="bg-primary-700 p-3 rounded-full hover:bg-primary-800 transition-colors">
+                <a href="#" className="p-3 rounded-full text-gray-600 hover:text-primary-500 hover:bg-gray-100 transition-all">
                   <Twitter className="h-6 w-6" />
                 </a>
-                <a href="#" className="bg-primary-700 p-3 rounded-full hover:bg-primary-800 transition-colors">
+                <a href="#" className="p-3 rounded-full text-gray-600 hover:text-primary-500 hover:bg-gray-100 transition-all">
                   <Linkedin className="h-6 w-6" />
                 </a>
               </div>
@@ -102,63 +104,61 @@ const Contact = () => {
           
           {/* Contact Form */}
           <div>
-            <div className="bg-white text-gray-800 p-8 rounded-xl shadow-lg">
-              <h3 className="text-2xl font-bold mb-6 text-gray-800">Send us a Message</h3>
+            <div className="bg-white p-8 rounded-xl shadow-soft">
+              <h3 className="text-2xl font-semibold mb-8 text-gray-900">Send us a Message</h3>
               
-              <form onSubmit={handleSubmit}>
-                <div className="space-y-6">
-                  <div>
-                    <label htmlFor="contact-name" className="block text-sm font-medium text-gray-700 mb-1">
-                      Name
-                    </label>
-                    <input
-                      id="contact-name"
-                      name="name"
-                      type="text"
-                      required
-                      value={formData.name}
-                      onChange={handleChange}
-                      className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-300"
-                      placeholder="Your full name"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="contact-email" className="block text-sm font-medium text-gray-700 mb-1">
-                      Email
-                    </label>
-                    <input
-                      id="contact-email"
-                      name="email"
-                      type="email"
-                      required
-                      value={formData.email}
-                      onChange={handleChange}
-                      className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-300"
-                      placeholder="Your email address"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="contact-message" className="block text-sm font-medium text-gray-700 mb-1">
-                      Message
-                    </label>
-                    <textarea
-                      id="contact-message"
-                      name="message"
-                      rows={5}
-                      required
-                      value={formData.message}
-                      onChange={handleChange}
-                      className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-300"
-                      placeholder="How can we help you?"
-                    />
-                  </div>
-                  
-                  <Button type="submit" className="w-full bg-primary-600 hover:bg-primary-700">
-                    Send Message
-                  </Button>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <label htmlFor="contact-name" className="block text-sm font-medium text-gray-700 mb-2">
+                    Name
+                  </label>
+                  <input
+                    id="contact-name"
+                    name="name"
+                    type="text"
+                    required
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="w-full p-4 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-300"
+                    placeholder="Your full name"
+                  />
                 </div>
+                
+                <div>
+                  <label htmlFor="contact-email" className="block text-sm font-medium text-gray-700 mb-2">
+                    Email
+                  </label>
+                  <input
+                    id="contact-email"
+                    name="email"
+                    type="email"
+                    required
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="w-full p-4 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-300"
+                    placeholder="Your email address"
+                  />
+                </div>
+                
+                <div>
+                  <label htmlFor="contact-message" className="block text-sm font-medium text-gray-700 mb-2">
+                    Message
+                  </label>
+                  <textarea
+                    id="contact-message"
+                    name="message"
+                    rows={5}
+                    required
+                    value={formData.message}
+                    onChange={handleChange}
+                    className="w-full p-4 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-300"
+                    placeholder="How can we help you?"
+                  />
+                </div>
+                
+                <Button type="submit" className="w-full py-6 bg-primary-500 hover:bg-primary-600 text-white shadow-soft hover:shadow-hover">
+                  Send Message
+                </Button>
               </form>
             </div>
           </div>

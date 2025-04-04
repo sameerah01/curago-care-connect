@@ -30,21 +30,23 @@ const faqs = [
 
 const FAQ = () => {
   return (
-    <section id="faqs" className="section-padding bg-blue-50">
+    <section id="faqs" className="section-padding bg-white">
       <div className="container-custom">
-        <h2 className="section-title text-center">Frequently Asked Questions</h2>
-        <p className="section-subtitle text-center">
-          Find answers to common questions about our services
-        </p>
+        <div className="text-center mb-16">
+          <h2 className="section-title">Frequently Asked Questions</h2>
+          <p className="section-subtitle">
+            Find answers to common questions about our services
+          </p>
+        </div>
         
-        <div className="max-w-3xl mx-auto mt-8">
-          <Accordion type="single" collapsible className="w-full">
+        <div className="max-w-3xl mx-auto">
+          <Accordion type="single" collapsible className="w-full space-y-4">
             {faqs.map((faq, index) => (
-              <AccordionItem key={index} value={`item-${index}`} className="bg-white mb-4 rounded-lg border border-gray-100">
-                <AccordionTrigger className="px-6 py-4 text-left hover:bg-blue-50 rounded-t-lg text-lg font-medium">
+              <AccordionItem key={index} value={`item-${index}`} className="bg-gray-50 rounded-lg border-none">
+                <AccordionTrigger className="px-6 py-5 text-left hover:bg-gray-100 rounded-t-lg text-lg font-medium text-gray-800">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="px-6 py-4 text-gray-600">
+                <AccordionContent className="px-6 py-5 text-gray-600 leading-relaxed border-t border-gray-100">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>

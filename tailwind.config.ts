@@ -21,7 +21,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
-        heading: ['Montserrat', 'sans-serif'],
+        heading: ['Inter', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -32,16 +32,16 @@ export default {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
-          50: "#eaf5ff",
-          100: "#d9ebff",
-          200: "#bbd9ff",
-          300: "#8ec1ff",
-          400: "#589bff",
-          500: "#3673ff",
-          600: "#1c4ff7",
-          700: "#1840e9",
-          800: "#1935bc",
-          900: "#192f93",
+          50: "#f0f7ff",
+          100: "#e0eefe",
+          200: "#bbd9fe",
+          300: "#90c1fd",
+          400: "#5d9cec",  // New primary color
+          500: "#3b82f6",
+          600: "#2563eb",  // New primary hover
+          700: "#1d4ed8",
+          800: "#1e40af",
+          900: "#1e3a8a",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -82,6 +82,10 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      boxShadow: {
+        'soft': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+        'hover': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
       },
       keyframes: {
         "accordion-down": {
