@@ -2,15 +2,19 @@
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, MessageSquare, Facebook, Instagram, Twitter, Linkedin } from 'lucide-react';
+import { supabase } from "@/lib/supabase";
+import { useToast } from "@/components/ui/use-toast";
 
 const Contact = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: ''
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -18,18 +22,45 @@ const Contact = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // In a real application, this would send the form data to a backend
-    console.log("Contact form submitted:", formData);
-    alert("Thank you for your message. We will get back to you soon!");
     
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      message: ''
-    });
+    try {
+      setIsSubmitting(true);
+      
+      const messageData = {
+        ...formData,
+        status: 'unread',
+      };
+      
+      const { error } = await supabase
+        .from('contact_messages')
+        .insert([messageData]);
+        
+      if (error) throw error;
+      
+      toast({
+        title: "Message sent",
+        description: "Thank you for your message. We will get back to you soon!",
+      });
+      
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        message: ''
+      });
+      
+    } catch (error) {
+      console.error("Error sending message:", error);
+      toast({
+        title: "Failed to send message",
+        description: "Please try again later",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -156,8 +187,19 @@ const Contact = () => {
                   />
                 </div>
                 
-                <Button type="submit" className="w-full py-6 bg-primary-500 hover:bg-primary-600 text-white shadow-soft hover:shadow-hover">
-                  Send Message
+                <Button 
+                  type="submit" 
+                  className="w-full py-6 bg-primary-500 hover:bg-primary-600 text-white shadow-soft hover:shadow-hover"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <span className="animate-spin mr-2">●</span>
+                      Sending...
+                    </>
+                  ) : (
+                    "Send Message"
+                  )}
                 </Button>
               </form>
             </div>
