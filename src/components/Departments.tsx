@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { Phone, Heart, Brain, Lungs, Baby, Eye, Bone } from 'lucide-react';
+import { Phone, Heart, Brain, Stethoscope, Baby, Eye, Bone } from 'lucide-react';
 
 const departments = [
   {
@@ -15,7 +15,7 @@ const departments = [
   },
   {
     name: "Pulmonology",
-    icon: <Lungs className="h-10 w-10 text-primary-600" />,
+    icon: <Stethoscope className="h-10 w-10 text-primary-600" />,
     description: "Comprehensive care for respiratory conditions and lung health."
   },
   {
