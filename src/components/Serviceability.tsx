@@ -1,48 +1,20 @@
 
 import { Phone, MessageSquare, MapPin, Check, Search } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { supabase } from "@/lib/supabase";
-import { ServiceableArea } from "@/types/supabase";
-import { useToast } from "@/components/ui/use-toast";
+
+const serviceableAreas = [
+  "Andheri", "Bandra", "Borivali", "Chembur", "Dadar", 
+  "Goregaon", "Juhu", "Kandivali", "Khar", "Kurla",
+  "Malad", "Powai", "Santacruz", "Vile Parle", "Worli"
+];
 
 const Serviceability = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [showAllAreas, setShowAllAreas] = useState(false);
-  const [serviceableAreas, setServiceableAreas] = useState<ServiceableArea[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const { toast } = useToast();
-  
-  useEffect(() => {
-    const fetchServiceableAreas = async () => {
-      try {
-        setIsLoading(true);
-        const { data, error } = await supabase
-          .from('serviceable_areas')
-          .select('*')
-          .eq('is_active', true)
-          .order('name');
-          
-        if (error) throw error;
-        
-        setServiceableAreas(data || []);
-      } catch (error) {
-        console.error('Error fetching serviceable areas:', error);
-        toast({
-          title: "Failed to load serviceable areas",
-          description: "Please try again later",
-          variant: "destructive",
-        });
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    
-    fetchServiceableAreas();
-  }, [toast]);
   
   const filteredAreas = serviceableAreas.filter(area => 
-    area.name.toLowerCase().includes(searchTerm.toLowerCase())
+    area.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const displayedAreas = showAllAreas ? filteredAreas : filteredAreas.slice(0, 6);
@@ -88,36 +60,22 @@ const Serviceability = () => {
                 />
               </div>
               
-              {isLoading ? (
-                <div className="flex justify-center py-4">
-                  <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary-500"></div>
-                </div>
-              ) : (
-                <>
-                  {filteredAreas.length === 0 ? (
-                    <p className="text-center text-gray-600 py-4">No areas found matching your search.</p>
-                  ) : (
-                    <>
-                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
-                        {displayedAreas.map((area, index) => (
-                          <div key={index} className="flex items-center">
-                            <Check size={16} className="text-primary-500 mr-2" />
-                            <span className="text-gray-700">{area.name}</span>
-                          </div>
-                        ))}
-                      </div>
-                      
-                      {filteredAreas.length > 6 && (
-                        <button 
-                          className="text-primary-500 font-medium flex items-center"
-                          onClick={() => setShowAllAreas(!showAllAreas)}
-                        >
-                          {showAllAreas ? "Show less" : "Show more"}
-                        </button>
-                      )}
-                    </>
-                  )}
-                </>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
+                {displayedAreas.map((area, index) => (
+                  <div key={index} className="flex items-center">
+                    <Check size={16} className="text-primary-500 mr-2" />
+                    <span className="text-gray-700">{area}</span>
+                  </div>
+                ))}
+              </div>
+              
+              {filteredAreas.length > 6 && (
+                <button 
+                  className="text-primary-500 font-medium flex items-center"
+                  onClick={() => setShowAllAreas(!showAllAreas)}
+                >
+                  {showAllAreas ? "Show less" : "Show more"}
+                </button>
               )}
               
               <div className="mt-8 pt-6 border-t border-gray-100">

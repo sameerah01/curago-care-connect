@@ -5,10 +5,8 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
-import { supabase } from "@/lib/supabase";
-import { useToast } from "@/components/ui/use-toast";
 
-const departmentsList = [
+const departments = [
   "Cardiology",
   "Neurology",
   "Pulmonology",
@@ -21,9 +19,7 @@ const departmentsList = [
 ];
 
 const Appointment = () => {
-  const [date, setDate] = useState<Date | null>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const { toast } = useToast();
+  const [date, setDate] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -31,7 +27,7 @@ const Appointment = () => {
     department: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -39,58 +35,20 @@ const Appointment = () => {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    // In a real application, this would send the form data to a backend
+    console.log("Form submitted:", { ...formData, date });
+    alert("Thank you! We will call you back shortly.");
     
-    if (!date) {
-      toast({
-        title: "Date required",
-        description: "Please select a preferred date",
-        variant: "destructive",
-      });
-      return;
-    }
-    
-    try {
-      setIsSubmitting(true);
-      
-      // Format the date as ISO string for database storage
-      const appointmentData = {
-        ...formData,
-        preferred_date: date.toISOString(),
-        status: 'pending',
-      };
-      
-      const { error } = await supabase
-        .from('appointments')
-        .insert([appointmentData]);
-        
-      if (error) throw error;
-      
-      toast({
-        title: "Appointment request submitted",
-        description: "We will call you back shortly",
-      });
-      
-      // Reset form
-      setFormData({
-        name: "",
-        phone: "",
-        email: "",
-        department: "",
-      });
-      setDate(null);
-      
-    } catch (error) {
-      console.error("Error submitting appointment:", error);
-      toast({
-        title: "Failed to submit appointment",
-        description: "Please try again later",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
+    // Reset form
+    setFormData({
+      name: "",
+      phone: "",
+      email: "",
+      department: "",
+    });
+    setDate(null);
   };
 
   return (
@@ -166,7 +124,7 @@ const Appointment = () => {
                     className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-300 bg-white"
                   >
                     <option value="" disabled>Select department</option>
-                    {departmentsList.map((dept) => (
+                    {departments.map((dept) => (
                       <option key={dept} value={dept}>
                         {dept}
                       </option>
@@ -202,19 +160,8 @@ const Appointment = () => {
               </div>
               
               <div className="mt-8 text-center">
-                <Button 
-                  type="submit" 
-                  className="btn-primary px-12 py-3 text-lg"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? (
-                    <>
-                      <span className="animate-spin mr-2">●</span>
-                      Processing...
-                    </>
-                  ) : (
-                    "Request a call back"
-                  )}
+                <Button type="submit" className="btn-primary px-12 py-3 text-lg">
+                  Request a call back
                 </Button>
               </div>
             </form>
